@@ -149,10 +149,26 @@ class _CalculadoraState extends State<Calculadora> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+       
         final Size screenSize = MediaQuery.of(context).size;
         final double scaleFactor = screenSize.width > 600 ? 1.5 : 1.0;
-
+        double iconSize = screenSize.width > 600 ? 32.0 : 24.0;
         return AlertDialog(
+          titlePadding: EdgeInsets.all(10*scaleFactor),
+          title: Stack(
+            children: [
+              Align(
+                alignment: Alignment.topRight,
+                child: IconButton(
+                  icon: Icon(Icons.close_rounded, size:iconSize * 1.7 ,),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ),
+              
+            ],
+          ),
           
           backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
