@@ -1,3 +1,4 @@
+import 'package:examen_flutter_hector/vistas/detalle.dart';
 import 'package:examen_flutter_hector/vistas/inicio.dart';
 import 'package:flutter/material.dart';  
   
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget{
         useMaterial3: true,  
         colorSchemeSeed: Colors.blue,  
       ),  
-       home:const Inicio(),  
+       home:const Inicio(),
+       //home:const Detalle(),    
       );  
   }  
   
