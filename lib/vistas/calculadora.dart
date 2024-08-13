@@ -90,27 +90,27 @@ class Calculadora extends StatelessWidget {
 
   Widget _buildPlazoPrestamo(double scaleFactor) {
     return Container(
-      padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(16.0 * scaleFactor),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12 * scaleFactor),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Plazo del préstamo',
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 28 * scaleFactor,
               fontWeight: FontWeight.bold,
               color: Color(0xFF26387C),
             ),
           ),
-          const SizedBox(height: 10),
-          const Text(
+          SizedBox(height: 10 * scaleFactor),
+          Text(
             '24 meses',
             style: TextStyle(
-              fontSize: 24,
+              fontSize: 24 * scaleFactor,
               fontWeight: FontWeight.bold,
               color: Color(0xFF26387C),
             ),
@@ -140,27 +140,27 @@ class Calculadora extends StatelessWidget {
 
    Widget _buildTasaInteres(double scaleFactor) {
     return Container(
-      padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(16.0 * scaleFactor),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12 * scaleFactor),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Tasa de interés anual',
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 28 * scaleFactor,
               fontWeight: FontWeight.bold,
               color: Color(0xFF26387C),
             ),
           ),
-          const SizedBox(height: 10),
-          const Text(
+          SizedBox(height: 10 * scaleFactor),
+          Text(
             '44 %',
             style: TextStyle(
-              fontSize: 24,
+              fontSize: 24 * scaleFactor,
               fontWeight: FontWeight.bold,
               color: Color(0xFF26387C),
             ),
