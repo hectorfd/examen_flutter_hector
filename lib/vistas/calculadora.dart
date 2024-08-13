@@ -120,24 +120,32 @@ class _CalculadoraState extends State<Calculadora> {
               textAlign: TextAlign.center,
             ),
           ),
-          Slider(
-            value: _montoPrestamo,
-            min: 1000.0,
-            max: 50000.0,
-            divisions: 490,
-            activeColor: const Color(0xFFFF9A00),
-            inactiveColor: Colors.grey[300],
-            onChanged: (value) {
-              setState(() {
-                _montoPrestamo = value;
-              });
-            },
+          SliderTheme(
+            data: SliderTheme.of(context).copyWith(
+                  inactiveTrackColor: Colors.grey[500],
+                  trackHeight: 8 * scaleFactor,  
+                  thumbShape:const RoundSliderThumbShape(enabledThumbRadius: 22.0),
+                  overlayShape:const RoundSliderOverlayShape(overlayRadius: 34.0),
+                ),
+            child: Slider(
+              value: _montoPrestamo,
+              min: 1000.0,
+              max: 50000.0,
+              divisions: 490,
+              activeColor: const Color(0xFFFF9A00),
+              inactiveColor: Colors.grey[300],
+              onChanged: (value) {
+                setState(() {
+                  _montoPrestamo = value;
+                });
+              },
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text('S/ 1,000.00'),
-              Text('S/ 50,000.00'),
+            children:[
+              Text('S/ 1,000.00', style: TextStyle(fontSize: 18 * scaleFactor, color:const Color(0xFF14213D)),),
+              Text('S/ 50,000.00', style: TextStyle(fontSize: 18 * scaleFactor, color:const Color(0xFF14213D)),),
             ],
           ),
         ],
@@ -159,7 +167,7 @@ class _CalculadoraState extends State<Calculadora> {
             'Plazo del préstamo',
             style: TextStyle(
               fontSize: 22 * scaleFactor,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w400,
               color: Colors.black87,
             ),
           ),
@@ -172,24 +180,32 @@ class _CalculadoraState extends State<Calculadora> {
               color: Color(0xFF26387C),
             ),
           ),
-          Slider(
-            value: _plazoPrestamo.toDouble(),
-            min: 6,
-            max: 36,
-            divisions: 30,
-            activeColor: const Color(0xFFFF9A00),
-            inactiveColor: Colors.grey[300],
-            onChanged: (value) {
-              setState(() {
-                _plazoPrestamo = value.toInt();
-              });
-            },
+          SliderTheme(
+            data: SliderTheme.of(context).copyWith(
+                  inactiveTrackColor: Colors.grey[500],
+                  trackHeight: 8 * scaleFactor,  
+                  thumbShape:const RoundSliderThumbShape(enabledThumbRadius: 22.0),
+                  overlayShape:const RoundSliderOverlayShape(overlayRadius: 34.0),
+                ),
+            child: Slider(
+              value: _plazoPrestamo.toDouble(),
+              min: 6,
+              max: 36,
+              divisions: 100,
+              activeColor: const Color(0xFFFF9A00),
+              inactiveColor: Colors.grey[300],
+              onChanged: (value) {
+                setState(() {
+                  _plazoPrestamo = value.toInt();
+                });
+              },
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text('6 meses'),
-              Text('36 meses'),
+            children: [
+              Text('6 meses', style: TextStyle(fontSize: 18 * scaleFactor, color:const Color(0xFF14213D)),),
+              Text('36 meses', style: TextStyle(fontSize: 18 * scaleFactor, color:const Color(0xFF14213D)),),
             ],
           ),
         ],
@@ -211,8 +227,8 @@ class _CalculadoraState extends State<Calculadora> {
             'Tasa de interés anual',
             style: TextStyle(
               fontSize: 22 * scaleFactor,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF26387C),
+              fontWeight: FontWeight.w400,
+              color:Colors.black87,
             ),
           ),
           SizedBox(height: 10 * scaleFactor),
@@ -220,28 +236,38 @@ class _CalculadoraState extends State<Calculadora> {
             '${_tasaInteres.toStringAsFixed(0)} %',
             style: TextStyle(
               fontSize: 24 * scaleFactor,
-              fontWeight: FontWeight.w500,
-              color: Colors.black87,
+              fontWeight: FontWeight.bold,
+              color: const Color(0xFF26387C),
             ),
           ),
-          Slider(
-            value: _tasaInteres,
-            min: 10.0,
-            max: 50.0,
-            divisions: 40,
-            activeColor: const Color(0xFFFF9A00),
-            inactiveColor: Colors.grey[300],
-            onChanged: (value) {
-              setState(() {
-                _tasaInteres = value;
-              });
-            },
+          SliderTheme(
+            data: SliderTheme.of(context).copyWith(
+                  inactiveTrackColor: Colors.grey[500],
+                  trackHeight: 8 * scaleFactor,  
+                  thumbShape:const RoundSliderThumbShape(enabledThumbRadius: 22.0),
+                  overlayShape:const RoundSliderOverlayShape(overlayRadius: 34.0),
+                ),
+            
+            child: Slider(
+              value: _tasaInteres,
+              min: 10.0,
+              max: 50.0,
+              divisions: 100,
+              activeColor: const Color(0xFFFF9A00),
+              inactiveColor: Colors.grey[300],
+              
+              onChanged: (value) {
+                setState(() {
+                  _tasaInteres = value;
+                });
+              },
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text('10 %'),
-              Text('50 %'),
+            children: [
+              Text('10 %', style: TextStyle(fontSize: 18 * scaleFactor, color:const Color(0xFF14213D)),),
+              Text('50 %', style: TextStyle(fontSize: 18 * scaleFactor, color:const Color(0xFF14213D)),),
             ],
           ),
         ],
