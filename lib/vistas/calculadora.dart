@@ -35,45 +35,54 @@ class _CalculadoraState extends State<Calculadora> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start, // Alinea los elementos al inicio
                 children: [
+                  
                   Padding(
-                    padding: EdgeInsets.all(20 * scaleFactor),
-                    child: Text(
-                      "Detalles del Préstamo",
-                      style: TextStyle(
-                        fontSize: scaleFactor * 24,
-                        color: Color(0xFF14213D),
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20 * scaleFactor),
+                    padding: EdgeInsets.symmetric(horizontal: 20 * scaleFactor, vertical: 20 * scaleFactor),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          'Monto del préstamo',
-                          style: TextStyle(
-                            fontSize: 18 * scaleFactor,
-                            fontWeight: FontWeight.w600,
+                        Center(
+                          child: Container(
+                            width: 150 * scaleFactor, 
+                            height: 150 * scaleFactor, 
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color:const Color(0xFFE5E5E5), 
+                                width: 18, 
+                              ),
+                            ),
+                            child: CircleAvatar(
+                              backgroundImage: NetworkImage("https://cdn-icons-png.flaticon.com/256/5191/5191404.png"),
+                              backgroundColor: Colors.white,
+                              radius: 80 * scaleFactor,
+                            ),
                           ),
-                        ),
-                        Text(
-                          'hola mundo',
-                          style: TextStyle(
-                            fontSize: 22 * scaleFactor,
-                            color: Colors.orange,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
+                        )
+
                       ],
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20 * scaleFactor),
-                    child: Divider(
-                      color: Colors.grey,
-                      thickness: 2.0,
+                    padding: EdgeInsets.all(20 * scaleFactor),
+                    child: Center(
+                      child: Text(
+                        "Felicidades!",
+                        style: TextStyle(
+                          fontSize: scaleFactor * 44,
+                          color: Color(0xFF14213D),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: SizedBox(
+                      height: 50 * scaleFactor,
+                      width: 360 * scaleFactor,
+                      child: Divider(
+                        color: Colors.grey, 
+                      ),
                     ),
                   ),
                   Padding(
@@ -88,7 +97,7 @@ class _CalculadoraState extends State<Calculadora> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30 * scaleFactor),
                               ),
-                              minimumSize: Size(1 * scaleFactor, 70 * scaleFactor),
+                              minimumSize: Size(1 * scaleFactor, 60 * scaleFactor),
                               elevation: 0.0,
                             ),
                             onPressed: () {
