@@ -41,7 +41,7 @@ class Inicio extends StatelessWidget{
               ),
               SizedBox(height: 150 * scaleFactor,),
               Padding(
-                padding: EdgeInsets.only(right: 60*scaleFactor, left: 60*scaleFactor),
+                padding: EdgeInsets.only(right: 80*scaleFactor, left: 80 *scaleFactor),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -49,9 +49,9 @@ class Inicio extends StatelessWidget{
                         child: ElevatedButton(
                           // estilos
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black87,
+                            backgroundColor:const Color(0xFF14213D),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30 * scaleFactor)),
-                            minimumSize: Size(1 * scaleFactor, 60 * scaleFactor),
+                            minimumSize: Size(1 * scaleFactor, 70 * scaleFactor),
                             elevation: 0.0,
                           ),
                           onPressed: () {
@@ -63,8 +63,8 @@ class Inicio extends StatelessWidget{
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.arrow_right_sharp, color: Colors.orange, size: 40 * scaleFactor),
-                              Text(' Empezar', style: TextStyle(fontSize: scaleFactor * 22, color: Colors.white, fontWeight: FontWeight.bold)),
+                              Icon(Icons.arrow_right_sharp, color: Colors.orange, size: 50 * scaleFactor),
+                              Text('Empezar', style: TextStyle(fontSize: scaleFactor * 22, color: Colors.white, fontWeight: FontWeight.bold)),
                             ],
                           ),
                         ),
