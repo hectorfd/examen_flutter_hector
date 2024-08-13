@@ -1,5 +1,10 @@
+import 'package:examen_flutter_hector/vistas/inicio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'dart:math';
+
 
 class Calculadora extends StatefulWidget {
   const Calculadora({super.key});
@@ -9,9 +14,340 @@ class Calculadora extends StatefulWidget {
 }
 
 class _CalculadoraState extends State<Calculadora> {
+
+  //mucho código me marea
+  //ventana de éxito
+    void showAlertDialogExito(BuildContext context) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          final Size screenSize = MediaQuery.of(context).size;
+          final double scaleFactor = screenSize.width > 600 ? 1.5 : 1.0;
+
+          return Dialog(
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20 * scaleFactor),
+            ),
+            child: Container(
+              width: screenSize.width,
+              height: screenSize.height,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start, // Alinea los elementos al inicio
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(20 * scaleFactor),
+                    child: Text(
+                      "Detalles del Préstamo",
+                      style: TextStyle(
+                        fontSize: scaleFactor * 24,
+                        color: Color(0xFF14213D),
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20 * scaleFactor),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Monto del préstamo',
+                          style: TextStyle(
+                            fontSize: 18 * scaleFactor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Text(
+                          'hola mundo',
+                          style: TextStyle(
+                            fontSize: 22 * scaleFactor,
+                            color: Colors.orange,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20 * scaleFactor),
+                    child: Divider(
+                      color: Colors.grey,
+                      thickness: 2.0,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20 * scaleFactor),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF14213D),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30 * scaleFactor),
+                              ),
+                              minimumSize: Size(1 * scaleFactor, 70 * scaleFactor),
+                              elevation: 0.0,
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const Inicio()),
+                              );
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.home,
+                                  color: Colors.white,
+                                  size: 30 * scaleFactor,
+                                ),
+                                Text(
+                                  ' Volver',
+                                  style: TextStyle(
+                                    fontSize: scaleFactor * 22,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+    }
+
+
+
+
+
+
   double _montoPrestamo = 10000.0;
   int _plazoPrestamo = 24;
   double _tasaInteres = 44.0;
+  //ventana de detalle
+  void showAlertDialog(BuildContext context) {
+    double cuotaMensual = calcularCuotaMensual();
+    double interesTotal = calcularInteresTotal(cuotaMensual);
+    double totalAPagar = _montoPrestamo + interesTotal;
+    double interesMensual = (_tasaInteres / 12);
+
+    NumberFormat currencyFormat = NumberFormat.currency(locale: 'es_PE', symbol: 'S/. ', decimalDigits: 2, customPattern: '¤#,##0.00');
+    String formatMontoPrestamo = currencyFormat.format(_montoPrestamo);
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        final Size screenSize = MediaQuery.of(context).size;
+        final double scaleFactor = screenSize.width > 600 ? 1.5 : 1.0;
+
+        return AlertDialog(
+          
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20 * scaleFactor),
+          ),
+          content: SizedBox(
+            
+            width: MediaQuery.of(context).size.width * 0.9, 
+            
+            child: Padding(
+              padding: EdgeInsets.all(20 * scaleFactor),
+              
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                
+                children: [
+                  Text("Detalles del Préstamo", style: TextStyle(fontSize: scaleFactor * 24, color:Color(0xFF14213D),fontWeight: FontWeight.w600) ,),
+                  SizedBox(height: 40*scaleFactor,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              
+                    children: [
+                      Text(
+                        'Monto del préstamo',
+                        style: TextStyle(fontSize: 18 * scaleFactor, fontWeight: FontWeight.w600),
+                      ),
+                      Text(
+                        formatMontoPrestamo,// ta potente esta dependencia
+                        style: TextStyle(fontSize: 22 * scaleFactor, color: Colors.orange, fontWeight: FontWeight.w800),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 50 * scaleFactor,
+                    width: 360 * scaleFactor,
+                    child: Divider(
+                      color: Colors.grey, 
+                    ),
+                  ),
+              
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Plazo en meses',
+                        style: TextStyle(fontSize: 18 * scaleFactor ,fontWeight: FontWeight.w600),
+                      ),
+                      Text(
+                        '$_plazoPrestamo meses',
+                        style: TextStyle(fontSize: 22 * scaleFactor , color: Colors.orange, fontWeight: FontWeight.w800),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 50 * scaleFactor,
+                    width: 360 * scaleFactor,
+                    child: Divider(
+                      color: Colors.grey, 
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Interés mensual',
+                        style: TextStyle(fontSize: 18 * scaleFactor ,fontWeight: FontWeight.w600),
+                      ),
+                      Text(
+                        '${interesMensual.toStringAsFixed(2)}%',
+                        style: TextStyle(fontSize: 22 * scaleFactor,  color: Colors.orange, fontWeight: FontWeight.w800),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 50 * scaleFactor,
+                    width: 360 * scaleFactor,
+                    child: Divider(
+                      color: Colors.grey, 
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Cuota mensual',
+                        style: TextStyle(fontSize: 18 * scaleFactor ,fontWeight: FontWeight.w600),
+                      ),
+                      Text(
+                        'S/. ${cuotaMensual.toStringAsFixed(2)}',
+                        style: TextStyle(fontSize: 22 * scaleFactor, color: Colors.orange, fontWeight: FontWeight.w800),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 50 * scaleFactor,
+                    width: 360 * scaleFactor,
+                    child: Divider(
+                      color: Colors.grey, 
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Total de interés a pagar',
+                        style: TextStyle(fontSize: 18 * scaleFactor ,fontWeight: FontWeight.w600),
+                      ),
+                      Text(
+                        'S/. ${interesTotal.toStringAsFixed(2)}',
+                        style: TextStyle(fontSize: 22 * scaleFactor , color: Colors.orange, fontWeight: FontWeight.w800),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 50 * scaleFactor,
+                    width: 360 * scaleFactor,
+                    child: Divider(
+                      color: Colors.grey, 
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Total a pagar',
+                        style: TextStyle(fontSize: 18 * scaleFactor ,fontWeight: FontWeight.w600),
+                      ),
+                      Text(
+                        'S/. ${totalAPagar.toStringAsFixed(2)}',
+                        style: TextStyle(fontSize: 22 * scaleFactor , color: Colors.orange, fontWeight: FontWeight.w800),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 50 * scaleFactor,
+                    width: 360 * scaleFactor,
+                    child: Divider(
+                      color: Colors.grey, 
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+            actions: <Widget>[
+              
+              Padding(
+                  padding: EdgeInsets.only(right: 60*scaleFactor, left: 60 *scaleFactor),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            // estilos
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:const Color(0xFF14213D),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30 * scaleFactor)),
+                              minimumSize: Size(1 * scaleFactor, 70 * scaleFactor),
+                              elevation: 0.0,
+                            ),
+                            onPressed: () {
+                              showAlertDialogExito(context);
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.check, color: Colors.orange, size: 30 * scaleFactor),
+                                Text(' Saca tu prestamo', style: TextStyle(fontSize: scaleFactor * 22, color: Colors.white, fontWeight: FontWeight.bold)),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                ),
+            ],
+          );
+        },
+      );
+    }
+
+  double calcularCuotaMensual() {
+    double P = _montoPrestamo;
+    double r = _tasaInteres / 100 / 12;
+    int n = _plazoPrestamo;
+
+    double cuotaMensual = (P * r) / (1 - pow(1 + r, -n));
+    return cuotaMensual;
+  }
+
+  double calcularInteresTotal(double cuotaMensual) {
+    return (cuotaMensual * _plazoPrestamo) - _montoPrestamo;
+  }
 
   
 
@@ -28,7 +364,9 @@ class _CalculadoraState extends State<Calculadora> {
         title: Text('Calculadora de Préstamos', style: TextStyle(color: Colors.white, fontSize: 23 * scaleFactor),),
         backgroundColor: const Color(0xFF14213D),
         leading: IconButton(onPressed: (){
-          Navigator.pop(context);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const Inicio()),
+          );
         }, icon: Icon(Icons.arrow_back, size: iconSize * 1.6,color: Colors.white,),),
         centerTitle: true,
         
@@ -60,10 +398,7 @@ class _CalculadoraState extends State<Calculadora> {
                               elevation: 0.0,
                             ),
                             onPressed: () {
-                              Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const Calculadora()),
-                              );
+                              showAlertDialog(context); 
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
